@@ -30,7 +30,7 @@ namespace StudentFileWorkTask.presentation
             DataContext = studentResultViewModel;
             exportService = new ExcelExportService(studentResultViewModel);
             importService = new ExcelImportService();
-            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
+            reportService = new StudentReportService(() => studentResultViewModel.StudentResultList);
         }
 
         private void filterCheck_Checked(object sender, RoutedEventArgs e)
@@ -642,10 +642,9 @@ namespace StudentFileWorkTask.presentation
         {
             if (string.IsNullOrWhiteSpace(tbxStudName.Text))
             {
-                MessageBox.Show("Введите ФИО студента!");
+                MessageBox.Show("Введите ФИО студента.");
                 return;
             }
-            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
             reportService.ExportStudentExcel(tbxStudName.Text);
         }
 
@@ -653,10 +652,9 @@ namespace StudentFileWorkTask.presentation
         {
             if (string.IsNullOrWhiteSpace(tbxStudName.Text))
             {
-                MessageBox.Show("Введите ФИО студента!");
+                MessageBox.Show("Введите ФИО студента.");
                 return;
             }
-            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
             reportService.ExportStudentPdf(tbxStudName.Text);
         }
 
@@ -664,10 +662,9 @@ namespace StudentFileWorkTask.presentation
         {
             if (string.IsNullOrWhiteSpace(tbxGroupName.Text))
             {
-                MessageBox.Show("Введите название группы!");
+                MessageBox.Show("Введите название группы.");
                 return;
             }
-            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
             reportService.ExportGroupExcel(tbxGroupName.Text);
         }
 
@@ -675,10 +672,9 @@ namespace StudentFileWorkTask.presentation
         {
             if (string.IsNullOrWhiteSpace(tbxGroupName.Text))
             {
-                MessageBox.Show("Введите название группы!");
+                MessageBox.Show("Введите название группы.");
                 return;
             }
-            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
             reportService.ExportGroupPdf(tbxGroupName.Text);
         }
     }

@@ -92,7 +92,7 @@ namespace StudentFileWorkTask.presentation {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TestReporter;component/presentation/columnmappingwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TestReporter;V1.0.0.0;component/presentation/columnmappingwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\presentation\ColumnMappingWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
