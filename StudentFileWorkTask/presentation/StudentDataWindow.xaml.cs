@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 using TestReporter.domain.fileWork;
 
 namespace StudentFileWorkTask.presentation
@@ -18,6 +19,9 @@ namespace StudentFileWorkTask.presentation
         StudentResultViewModel studentResultViewModel;
         private ExcelExportService exportService;
         private ExcelImportService importService;
+        private StudentReportService reportService;
+        private bool _suppressStudentSuggest;
+        private bool _suppressGroupSuggest;
 
         public StudentDataWindow()
         {
@@ -26,6 +30,7 @@ namespace StudentFileWorkTask.presentation
             DataContext = studentResultViewModel;
             exportService = new ExcelExportService(studentResultViewModel);
             importService = new ExcelImportService();
+            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
         }
 
         private void filterCheck_Checked(object sender, RoutedEventArgs e)
@@ -421,13 +426,260 @@ namespace StudentFileWorkTask.presentation
 
                     doc.Close();
 
-                    MessageBox.Show($"PDF сохранён!\nПуть: {dialog.FileName}");
+                    MessageBox.Show($"PDF успешно сохранён!");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        {
+            while (current != null)
+            {
+                if (current is T typed) return typed;
+                current = System.Windows.Media.VisualTreeHelper.GetParent(current);
+            }
+            return null;
+        }
+
+        private void TbxStudName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_suppressStudentSuggest) return;
+
+            var suggestions = reportService.GetStudentSuggestions(tbxStudName.Text);
+            if (suggestions.Count == 0)
+            {
+                studentSuggestPopup.IsOpen = false;
+                return;
+            }
+
+            studentSuggestList.ItemsSource = suggestions;
+            studentSuggestList.SelectedIndex = -1;
+            studentSuggestPopup.IsOpen = true;
+        }
+
+        private void TbxStudName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!studentSuggestPopup.IsOpen) return;
+
+            if (e.Key == Key.Down)
+            {
+                if (studentSuggestList.Items.Count > 0)
+                {
+                    studentSuggestList.SelectedIndex = Math.Min(
+                        studentSuggestList.SelectedIndex + 1,
+                        studentSuggestList.Items.Count - 1);
+                    studentSuggestList.ScrollIntoView(studentSuggestList.SelectedItem);
+                }
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Up)
+            {
+                if (studentSuggestList.Items.Count > 0)
+                {
+                    studentSuggestList.SelectedIndex = Math.Max(studentSuggestList.SelectedIndex - 1, 0);
+                    studentSuggestList.ScrollIntoView(studentSuggestList.SelectedItem);
+                }
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Enter)
+            {
+                if (studentSuggestList.SelectedItem is string selected)
+                {
+                    ApplyStudentSuggestion(selected);
+                    e.Handled = true;
+                }
+                else
+                {
+                    studentSuggestPopup.IsOpen = false;
+                }
+            }
+            else if (e.Key == Key.Escape)
+            {
+                studentSuggestPopup.IsOpen = false;
+                e.Handled = true;
+            }
+        }
+
+        private void StudentSuggestList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var item = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+            if (item?.DataContext is string selected)
+            {
+                ApplyStudentSuggestion(selected);
+                e.Handled = true;
+            }
+        }
+
+        private void StudentSuggestList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && studentSuggestList.SelectedItem is string selected)
+            {
+                ApplyStudentSuggestion(selected);
+                e.Handled = true;
+            }
+        }
+
+        private void TbxStudName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (studentSuggestPopup.IsKeyboardFocusWithin) return;
+                if (tbxStudName.IsKeyboardFocusWithin) return;
+                studentSuggestPopup.IsOpen = false;
+            }), DispatcherPriority.Background);
+        }
+
+        private void ApplyStudentSuggestion(string fio)
+        {
+            _suppressStudentSuggest = true;
+            tbxStudName.Text = fio;
+            tbxStudName.CaretIndex = fio.Length;
+            _suppressStudentSuggest = false;
+            studentSuggestPopup.IsOpen = false;
+        }
+
+        private void TbxGroupName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (_suppressGroupSuggest) return;
+
+            var suggestions = reportService.GetGroupSuggestions(tbxGroupName.Text);
+            if (suggestions.Count == 0)
+            {
+                groupSuggestPopup.IsOpen = false;
+                return;
+            }
+
+            groupSuggestList.ItemsSource = suggestions;
+            groupSuggestList.SelectedIndex = -1;
+            groupSuggestPopup.IsOpen = true;
+        }
+
+        private void TbxGroupName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!groupSuggestPopup.IsOpen) return;
+
+            if (e.Key == Key.Down)
+            {
+                if (groupSuggestList.Items.Count > 0)
+                {
+                    groupSuggestList.SelectedIndex = Math.Min(
+                        groupSuggestList.SelectedIndex + 1,
+                        groupSuggestList.Items.Count - 1);
+                    groupSuggestList.ScrollIntoView(groupSuggestList.SelectedItem);
+                }
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Up)
+            {
+                if (groupSuggestList.Items.Count > 0)
+                {
+                    groupSuggestList.SelectedIndex = Math.Max(groupSuggestList.SelectedIndex - 1, 0);
+                    groupSuggestList.ScrollIntoView(groupSuggestList.SelectedItem);
+                }
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Enter)
+            {
+                if (groupSuggestList.SelectedItem is string selected)
+                {
+                    ApplyGroupSuggestion(selected);
+                    e.Handled = true;
+                }
+                else
+                {
+                    groupSuggestPopup.IsOpen = false;
+                }
+            }
+            else if (e.Key == Key.Escape)
+            {
+                groupSuggestPopup.IsOpen = false;
+                e.Handled = true;
+            }
+        }
+
+        private void GroupSuggestList_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var item = FindAncestor<ListBoxItem>((DependencyObject)e.OriginalSource);
+            if (item?.DataContext is string selected)
+            {
+                ApplyGroupSuggestion(selected);
+                e.Handled = true;
+            }
+        }
+
+        private void GroupSuggestList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && groupSuggestList.SelectedItem is string selected)
+            {
+                ApplyGroupSuggestion(selected);
+                e.Handled = true;
+            }
+        }
+
+        private void TbxGroupName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (groupSuggestPopup.IsKeyboardFocusWithin) return;
+                if (tbxGroupName.IsKeyboardFocusWithin) return;
+                groupSuggestPopup.IsOpen = false;
+            }), DispatcherPriority.Background);
+        }
+
+        private void ApplyGroupSuggestion(string groupName)
+        {
+            _suppressGroupSuggest = true;
+            tbxGroupName.Text = groupName;
+            tbxGroupName.CaretIndex = groupName.Length;
+            _suppressGroupSuggest = false;
+            groupSuggestPopup.IsOpen = false;
+        }
+
+        private void ExcelStudentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbxStudName.Text))
+            {
+                MessageBox.Show("Введите ФИО студента!");
+                return;
+            }
+            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
+            reportService.ExportStudentExcel(tbxStudName.Text);
+        }
+
+        private void PdfStudentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbxStudName.Text))
+            {
+                MessageBox.Show("Введите ФИО студента!");
+                return;
+            }
+            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
+            reportService.ExportStudentPdf(tbxStudName.Text);
+        }
+
+        private void ExcelGroupBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbxGroupName.Text))
+            {
+                MessageBox.Show("Введите название группы!");
+                return;
+            }
+            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
+            reportService.ExportGroupExcel(tbxGroupName.Text);
+        }
+
+        private void PdfGroupBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbxGroupName.Text))
+            {
+                MessageBox.Show("Введите название группы!");
+                return;
+            }
+            reportService = new StudentReportService(studentResultViewModel.StudentResultList);
+            reportService.ExportGroupPdf(tbxGroupName.Text);
         }
     }
 }

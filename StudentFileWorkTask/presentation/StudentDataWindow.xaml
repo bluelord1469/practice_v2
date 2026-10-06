@@ -33,9 +33,7 @@
                 <StackPanel>
                     <Border Background="#F8F9FA" Padding="12" Margin="0,0,0,15" >
                         <StackPanel>
-                            <TextBlock Text="Файлы тестирований" 
-                                           FontWeight="SemiBold" 
-                                           Foreground="#81A6C6"
+                            <TextBlock Text="Файлы тестирований" Style="{StaticResource SectionHeaderStyle}"
                                            Margin="0,0,0,10"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
@@ -122,7 +120,7 @@
                                Style="{StaticResource SectionHeaderStyle}"/>
 
                     <FrameworkElement x:Name="columnElement" Visibility="Collapsed"/>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="460">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="340">
                         <DataGrid x:Name="studentResultGrid" 
                                   AutoGenerateColumns="False" 
                                   ItemsSource="{Binding StudentResultList}">
@@ -178,22 +176,108 @@
                         </StackPanel>
                     </Border>
 
-                    <Button x:Name="excelCreateBtn" 
-                        Content="Сформировать новый отчет" 
-                        Click="excelCreateBtn_Click" 
-                        Style="{StaticResource RoundButton}"
-                        HorizontalAlignment="Left"/>
+                    <StackPanel>
+                        <TextBlock Text="Общие отчеты:" FontWeight="SemiBold" Foreground="#81A6C6" Margin="0 0 0 5"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="excelCreateBtn" 
+                                    Content="Сформировать Excel отчет" 
+                                    Click="excelCreateBtn_Click" 
+                                    Style="{StaticResource RoundButton}"
+                                    HorizontalAlignment="Left" Margin="2 0"/>
 
-                    <Button x:Name="excelUpdateBtn" 
-                        Content="Обновить существующий отчет" 
-                        Click="excelUpdateBtn_Click" 
-                        Style="{StaticResource RoundButton}"
-                        HorizontalAlignment="Left" Margin="0,10,0,0"/>
-                    <Button x:Name="pdfExportBtn" 
-                        Content="Экспорт в PDF" 
-                        Click="PdfExportBtn_Click" 
-                        Style="{StaticResource RoundButton}"
-                        HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                            <Button x:Name="excelUpdateBtn" 
+                                    Content="Обновить Excel отчет" 
+                                    Click="excelUpdateBtn_Click" 
+                                    Style="{StaticResource RoundButton}"
+                                    HorizontalAlignment="Left" Margin="2 0"/>
+
+                            <Button x:Name="pdfExportBtn" 
+                                    Content="Экспорт в PDF" 
+                                    Click="PdfExportBtn_Click" 
+                                    Style="{StaticResource RoundButton}"
+                                    HorizontalAlignment="Left" Margin="2 0"/>
+                        </StackPanel>
+                        
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="Отчеты по студенту:" FontWeight="SemiBold" Foreground="#81A6C6" Margin="0 5 0 5"/>
+
+                        <Popup x:Name="studentSuggestPopup"
+                               PlacementTarget="{Binding ElementName=tbxStudName}"
+                               Placement="Bottom"
+                               StaysOpen="True"
+                               AllowsTransparency="True"
+                               IsOpen="False">
+                            <Border Background="White" BorderBrush="#81A6C6" BorderThickness="1" 
+                                    CornerRadius="4" MaxHeight="200">
+                                <ListBox x:Name="studentSuggestList"
+                                         Width="{Binding ActualWidth, ElementName=tbxStudName}"
+                                         MouseDoubleClick="StudentSuggestList_PreviewMouseLeftButtonUp"
+                                         KeyDown="StudentSuggestList_KeyDown"/>
+                            </Border>
+                        </Popup>
+
+                        <TextBox Name="tbxStudName"
+                                 Margin="5" Padding="5"
+                                 TextChanged="TbxStudName_TextChanged"
+                                 KeyDown="TbxStudName_KeyDown"
+                                 LostFocus="TbxStudName_LostFocus"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="excelStudentBtn"
+                                    Content="Excel отчет по студенту"
+                                    Click="ExcelStudentBtn_Click"
+                                    Style="{StaticResource RoundButton}"
+                                    HorizontalAlignment="Left" Margin="2 0"/>
+
+                            <Button x:Name="pdfStudentBtn"
+                                    Content="PDF отчет по студенту"
+                                    Click="PdfStudentBtn_Click"
+                                    Style="{StaticResource RoundButton}"
+                                    HorizontalAlignment="Left" Margin="2 0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <TextBlock Text="Отчеты по группе:" FontWeight="SemiBold" Foreground="#81A6C6" Margin="0 5 0 5"/>
+
+                        <Popup x:Name="groupSuggestPopup"
+                               PlacementTarget="{Binding ElementName=tbxGroupName}"
+                               Placement="Top"
+                               StaysOpen="True"
+                               AllowsTransparency="True"
+                               IsOpen="False">
+                            <Border Background="White" BorderBrush="#81A6C6" BorderThickness="1"
+                                    CornerRadius="4" MaxHeight="200">
+                                <ListBox x:Name="groupSuggestList"
+                                         Width="{Binding ActualWidth, ElementName=tbxGroupName}"
+                                         MouseDoubleClick="GroupSuggestList_PreviewMouseLeftButtonUp"
+                                         KeyDown="GroupSuggestList_KeyDown"/>
+                            </Border>
+                        </Popup>
+
+                        <TextBox Name="tbxGroupName"
+                                 Margin="5" Padding="5"
+                                 TextChanged="TbxGroupName_TextChanged"
+                                 KeyDown="TbxGroupName_KeyDown"
+                                 LostFocus="TbxGroupName_LostFocus"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="excelGroupBtn"
+                            Content="Excel отчет по группе"
+                            Click="ExcelGroupBtn_Click"
+                            Style="{StaticResource RoundButton}"
+                            HorizontalAlignment="Left" Margin="2 0"/>
+
+                            <Button x:Name="pdfGroupBtn"
+                                    Content="PDF отчет по группе"
+                                    Click="PdfGroupBtn_Click"
+                                    Style="{StaticResource RoundButton}"
+                                    HorizontalAlignment="Left" Margin="2 0"/>
+                        </StackPanel>
+                    </StackPanel>
+
                 </StackPanel>
             </Border>
         </StackPanel>

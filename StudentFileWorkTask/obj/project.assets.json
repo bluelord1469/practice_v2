@@ -1473,9 +1473,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\cxnts\\Source\\Repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+      "projectUniqueName": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
       "projectName": "TestReporter",
-      "projectPath": "C:\\Users\\cxnts\\Source\\Repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+      "projectPath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
       "packagesPath": "C:\\Users\\cxnts\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\cxnts\\Source\\Repos\\studentFileWorkTask\\StudentFileWorkTask\\obj\\",
       "projectStyle": "PackageReference",

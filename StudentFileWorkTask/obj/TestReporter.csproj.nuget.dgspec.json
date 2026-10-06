@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cxnts\\Source\\Repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj": {}
+    "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cxnts\\Source\\Repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj": {
+    "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cxnts\\Source\\Repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+        "projectUniqueName": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
         "projectName": "TestReporter",
-        "projectPath": "C:\\Users\\cxnts\\Source\\Repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+        "projectPath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
         "packagesPath": "C:\\Users\\cxnts\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cxnts\\Source\\Repos\\studentFileWorkTask\\StudentFileWorkTask\\obj\\",
+        "outputPath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
