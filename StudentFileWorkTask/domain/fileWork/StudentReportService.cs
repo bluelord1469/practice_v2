@@ -16,16 +16,17 @@ namespace TestReporter.domain.fileWork
     /// </summary>
     internal class StudentReportService
     {
-        private readonly IEnumerable<StudentResult> _allResults;
+        private readonly Func<IEnumerable<StudentResult>> _resultsProvider;
 
-        public StudentReportService(IEnumerable<StudentResult> allResults)
+        public StudentReportService(Func<IEnumerable<StudentResult>> resultsProvider)
         {
-            _allResults = allResults ?? Enumerable.Empty<StudentResult>();
+            _resultsProvider = resultsProvider ?? (() => Enumerable.Empty<StudentResult>());
         }
+        private IEnumerable<StudentResult> AllResults => _resultsProvider();
 
         public List<string> GetStudentSuggestions(string query)
         {
-            var all = _allResults
+            var all = AllResults
                 .Select(r => r.Student)
                 .Where(s => s != null)
                 .Select(s => $"{s.Surname} {s.Name} {s.Patronymic}")
@@ -42,7 +43,7 @@ namespace TestReporter.domain.fileWork
 
         public List<string> GetGroupSuggestions(string query)
         {
-            var all = _allResults
+            var all = AllResults
                 .Select(r => r.Student?.Group?.GroupName)
                 .Where(g => !string.IsNullOrWhiteSpace(g))
                 .Distinct()
@@ -167,7 +168,7 @@ namespace TestReporter.domain.fileWork
         private List<StudentResult> FilterByStudent(string fio)
         {
             var normalized = NormalizeFio(fio);
-            return _allResults
+            return AllResults
                 .Where(r =>
                 {
                     var s = r.Student;
@@ -179,7 +180,7 @@ namespace TestReporter.domain.fileWork
 
         private List<StudentResult> FilterByGroup(string groupName)
         {
-            return _allResults
+            return AllResults
                 .Where(r => string.Equals(r.Student?.Group?.GroupName?.Trim(),
                                           groupName?.Trim(),
                                           StringComparison.OrdinalIgnoreCase)).ToList();
@@ -251,7 +252,7 @@ namespace TestReporter.domain.fileWork
 
         private Dictionary<string, double> ComputeMaxScoresByTheme()
         {
-            var attempts = _allResults
+            var attempts = AllResults
                 .GroupBy(r => new
                 {
                     Theme = r.Question?.Theme?.ThemeName ?? "Без темы",

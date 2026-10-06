@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nHskS3Ri9ys=",
+  "dgSpecHash": "kllF2L8ZXuE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+  "projectFilePath": "C:\\Users\\cxnts\\source\\repos\\bluelord1469\\practice_v2\\StudentFileWorkTask\\TestReporter.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cxnts\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
     "C:\\Users\\cxnts\\.nuget\\packages\\closedxml\\0.105.0\\closedxml.0.105.0.nupkg.sha512",
@@ -43,9 +43,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Пакет \"BouncyCastle 1.8.9\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net6.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "projectPath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+      "projectPath": "C:\\Users\\cxnts\\source\\repos\\bluelord1469\\practice_v2\\StudentFileWorkTask\\TestReporter.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+      "filePath": "C:\\Users\\cxnts\\source\\repos\\bluelord1469\\practice_v2\\StudentFileWorkTask\\TestReporter.csproj",
       "libraryId": "BouncyCastle",
       "targetGraphs": [
         "net6.0-windows7.0"
@@ -55,9 +55,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Пакет \"iTextSharp 5.5.13.3\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net6.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "projectPath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+      "projectPath": "C:\\Users\\cxnts\\source\\repos\\bluelord1469\\practice_v2\\StudentFileWorkTask\\TestReporter.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+      "filePath": "C:\\Users\\cxnts\\source\\repos\\bluelord1469\\practice_v2\\StudentFileWorkTask\\TestReporter.csproj",
       "libraryId": "iTextSharp",
       "targetGraphs": [
         "net6.0-windows7.0"
@@ -67,9 +67,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Пакет \"MaterialDesignColors 5.3.2\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net6.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "projectPath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+      "projectPath": "C:\\Users\\cxnts\\source\\repos\\bluelord1469\\practice_v2\\StudentFileWorkTask\\TestReporter.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\cxnts\\source\\repos\\studentFileWorkTask\\StudentFileWorkTask\\TestReporter.csproj",
+      "filePath": "C:\\Users\\cxnts\\source\\repos\\bluelord1469\\practice_v2\\StudentFileWorkTask\\TestReporter.csproj",
       "libraryId": "MaterialDesignColors",
       "targetGraphs": [
         "net6.0-windows7.0"
